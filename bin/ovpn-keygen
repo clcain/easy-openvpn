@@ -1,0 +1,45 @@
+#!/bin/bash
+
+if [ ! "$(whoami)" == "root" ]
+then
+    echo "Script must be run as root."
+    exit 1
+fi
+
+if [ "$1" == "" ]
+then
+    echo "Common name (CN) must be given as first parameter."
+    exit 1
+fi
+
+if [ ! -d /etc/openvpn/easy-rsa ]
+then
+    echo "Easy RSA must be installed in: /etc/openvpn/easy-rsa"
+    exit 1
+fi
+
+CN=$1
+CA_FILE=ca.crt
+CLIENT_CONFIG_FILE=client.conf
+CLIENT_CRT_FILE=$CN.crt
+CLIENT_KEY_FILE=$CN.key
+CLIENT_OVPN_FILE=$CN.ovpn
+
+cd /etc/openvpn/easy-rsa/
+. ./vars
+./build-key "$CN"
+
+cd /etc/openvpn/easy-rsa/keys/
+cp $CLIENT_CONFIG_FILE $CLIENT_OVPN_FILE
+echo "<ca>" >> $CLIENT_OVPN_FILE
+cat $CA_FILE >> $CLIENT_OVPN_FILE
+echo "</ca>" >> $CLIENT_OVPN_FILE
+echo "<cert>" >> $CLIENT_OVPN_FILE
+cat $CLIENT_CRT_FILE >> $CLIENT_OVPN_FILE
+echo "</cert>" >> $CLIENT_OVPN_FILE
+echo "<key>" >> $CLIENT_OVPN_FILE
+cat $CLIENT_KEY_FILE >> $CLIENT_OVPN_FILE
+echo "</key>" >> $CLIENT_OVPN_FILE
+
+echo "Key generation complete."
+echo "Keys may be found in: /etc/openvpn/easy-rsa/keys/"
