@@ -1,0 +1,56 @@
+#!/usr/bin/env python3
+
+import argparse
+import os
+import sys
+
+class OVPN:
+
+    def __init__(self):
+        self.commands = [
+            'server-setup',
+            'client-add',
+            'client-list',
+            'client-show',
+        ]
+
+    def checkenv(self):
+        if not os.path.isfile('/usr/sbin/openvpn'):
+            print('Error: Unable to find openvpn at /usr/sbin/openvpn.')
+            print('Check that it has been installed properly.')
+            sys.exit(1)
+
+        if not os.path.isfile('/usr/share/easy-rsa/easyrsa'):
+            print('Error: Unable to find easyrsa at /usr/share/easy-rsa/easyrsa')
+            print('Check that it has been installed properly.')
+            sys.exit(1)
+
+    def cmd_server_setup(self):
+        print('Performing initial server setup...')
+
+    def cmd_client_add(self):
+        print('Generating new client key...')
+
+    def cmd_client_list(self):
+        print('Listing client keys...')
+
+    def cmd_client_show(self):
+        print('Displaying client .ovpn...')
+
+    def parse_args(self):
+        parser = argparse.ArgumentParser(prog='ovpn')
+        parser.add_argument('command', choices=self.commands)
+        self.args = parser.parse_args()
+
+    def run(self):
+        self.checkenv()
+        self.parse_args()
+        print(self.args)
+        getattr(self, f'cmd_{self.args.command}'.lower().replace('-', '_'))()
+
+def main():
+    ovpn = OVPN()
+    ovpn.run()
+
+if __name__ == '__main__':
+    main()
