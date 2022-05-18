@@ -6,10 +6,10 @@ Make managing your OpenVPN servers on Debian just a bit easier. Supports automat
 
 ## Dependencies
 
-Before you can use easy-openvpn, run the following:
+Before you can use easy-openvpn, ensure you have the following packages installed:
 
 ```
-sudo apt-get install -y easy-rsa git openvpn python3
+sudo apt-get install -y openvpn python3
 ```
 
 ## Usage
