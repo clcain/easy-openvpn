@@ -15,3 +15,5 @@ sudo apt-get install -y easy-rsa git openvpn python3
 ## Usage
 
 Once you have installed the required dependencies, simply clone this repo and run `./install.sh`. You will then be able to access easy-openvpn as `ovpn`.
+
+Tested with Debian 11 and OpenVPN 2.4+.
