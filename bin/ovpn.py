@@ -30,6 +30,11 @@ class OVPN:
             print('Check that it has been installed properly.')
             sys.exit(1)
 
+    def parse_args(self):
+        parser = argparse.ArgumentParser(prog='ovpn')
+        parser.add_argument('command', choices=self.commands)
+        self.args = parser.parse_args()
+
     def cmd_init(self):
         print('Performing initial server initialization...')
 
@@ -56,11 +61,6 @@ class OVPN:
 
     def cmd_update(self):
         print('Updating easy-openvpn')
-
-    def parse_args(self):
-        parser = argparse.ArgumentParser(prog='ovpn')
-        parser.add_argument('command', choices=self.commands)
-        self.args = parser.parse_args()
 
     def run(self):
         self.checkenv()
