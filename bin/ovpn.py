@@ -8,10 +8,14 @@ class OVPN:
 
     def __init__(self):
         self.commands = [
-            'server-setup',
-            'client-add',
-            'client-list',
-            'client-show',
+            'init',
+            'status',
+            'server-config',
+            'client-config',
+            'clients',
+            'add-client',
+            'revoke-client',
+            'export-ovpn',
         ]
 
     def checkenv(self):
@@ -25,17 +29,29 @@ class OVPN:
             print('Check that it has been installed properly.')
             sys.exit(1)
 
-    def cmd_server_setup(self):
-        print('Performing initial server setup...')
+    def cmd_init(self):
+        print('Performing initial server initialization...')
 
-    def cmd_client_add(self):
-        print('Generating new client key...')
+    def cmd_status(self):
+        print('Checking for status...')
 
-    def cmd_client_list(self):
-        print('Listing client keys...')
+    def cmd_server_config(self):
+        print('Editing server config file...')
 
-    def cmd_client_show(self):
-        print('Displaying client .ovpn...')
+    def cmd_client_config(self):
+        print('Editing client config file...')
+
+    def cmd_clients(self):
+        print('Listing clients...')
+
+    def cmd_add_client(self):
+        print('Adding new client...')
+
+    def cmd_revoke_client(self):
+        print('Revoking existing client...')
+
+    def cmd_export_ovpn(self):
+        print('Exporting client .ovpn...', file=sys.stderr)
 
     def parse_args(self):
         parser = argparse.ArgumentParser(prog='ovpn')
