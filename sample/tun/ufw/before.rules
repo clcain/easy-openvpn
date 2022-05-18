@@ -1,0 +1,7 @@
+# /etc/ufw/before.rules
+
+# openvpn
+*nat
+:POSTROUTING ACCEPT [0:0]
+-A POSTROUTING -s 10.0.1.0/24 -o eth0 -j MASQUERADE
+COMMIT
