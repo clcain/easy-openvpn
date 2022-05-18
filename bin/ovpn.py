@@ -16,6 +16,7 @@ class OVPN:
             'add-client',
             'revoke-client',
             'export-ovpn',
+            'update',
         ]
 
     def checkenv(self):
@@ -53,6 +54,9 @@ class OVPN:
     def cmd_export_ovpn(self):
         print('Exporting client .ovpn...', file=sys.stderr)
 
+    def cmd_update(self):
+        print('Updating easy-openvpn')
+
     def parse_args(self):
         parser = argparse.ArgumentParser(prog='ovpn')
         parser.add_argument('command', choices=self.commands)
@@ -61,7 +65,6 @@ class OVPN:
     def run(self):
         self.checkenv()
         self.parse_args()
-        print(self.args)
         getattr(self, f'cmd_{self.args.command}'.lower().replace('-', '_'))()
 
 def main():
