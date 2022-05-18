@@ -2,6 +2,8 @@
 
 Make managing your OpenVPN servers on Debian just a bit easier. Supports automated server setup and key management.
 
+**This project is under active development. This message will be removed when easy-openvpn is ready for production use.**
+
 ## Dependencies
 
 Before you can use easy-openvpn, run the following:
